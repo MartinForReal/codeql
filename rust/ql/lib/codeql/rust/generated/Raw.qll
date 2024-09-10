@@ -395,6 +395,12 @@ module Raw {
 
   /**
    * INTERNAL: Do not use.
+   * A `const` block expression. For example:
+   * ```
+   * if const { SRC::IS_ZST || DEST::IS_ZST || mem::align_of::<SRC>() != mem::align_of::<DEST>() } {
+   *     return false;
+   * }
+   * ```
    */
   class ConstExpr extends @const_expr, Expr {
     override string toString() { result = "ConstExpr" }
@@ -480,6 +486,19 @@ module Raw {
 
   /**
    * INTERNAL: Do not use.
+   * An `if` expression. For example:
+   * ```
+   * if x == 42 {
+   *     println!("that's the answer");
+   * }
+   * ```
+   * ```
+   * let y = if x > 0 {
+   *     1
+   * } else {
+   *     0
+   * }
+   * ```
    */
   class IfExpr extends @if_expr, Expr {
     override string toString() { result = "IfExpr" }
@@ -543,6 +562,12 @@ module Raw {
 
   /**
    * INTERNAL: Do not use.
+   * A `let` expression. For example:
+   * ```
+   * if let Some(x) = maybe_some {
+   *     println!("{}", x);
+   * }
+   * ```
    */
   class LetExpr extends @let_expr, Expr {
     override string toString() { result = "LetExpr" }
@@ -667,6 +692,11 @@ module Raw {
 
   /**
    * INTERNAL: Do not use.
+   * A missing expression, used as a place holder for incomplete syntax, as well as bodies of functions that are defined externally.
+   *
+   * ```
+   * let x = non_existing_macro!();
+   * ```
    */
   class MissingExpr extends @missing_expr, Expr {
     override string toString() { result = "MissingExpr" }
@@ -1023,6 +1053,13 @@ module Raw {
 
   /**
    * INTERNAL: Do not use.
+   * An async block expression. For example:
+   * ```
+   * async {
+   *    let x = 42;
+   *    x
+   * }.await
+   * ```
    */
   class AsyncBlockExpr extends @async_block_expr, BlockExprBase {
     override string toString() { result = "AsyncBlockExpr" }
@@ -1030,6 +1067,18 @@ module Raw {
 
   /**
    * INTERNAL: Do not use.
+   * A block expression. For example:
+   * ```
+   * {
+   *     let x = 42;
+   * }
+   * ```
+   * ```
+   * 'label: {
+   *     let x = 42;
+   *     x
+   * }
+   * ```
    */
   class BlockExpr extends @block_expr, BlockExprBase {
     override string toString() { result = "BlockExpr" }

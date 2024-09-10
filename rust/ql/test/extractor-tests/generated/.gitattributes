@@ -1,3 +1,9 @@
 /.generated_tests.list linguist-generated
 /.gitattributes linguist-generated
+/AsyncBlockExpr/gen_async_block_expr.rs linguist-generated
+/BlockExpr/gen_block_expr.rs linguist-generated
+/ConstExpr/gen_const_expr.rs linguist-generated
 /Function/gen_function.rs linguist-generated
+/IfExpr/gen_if_expr.rs linguist-generated
+/LetExpr/gen_let_expr.rs linguist-generated
+/MissingExpr/gen_missing_expr.rs linguist-generated

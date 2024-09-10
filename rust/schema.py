@@ -76,7 +76,6 @@ class Module(Declaration):
     declarations: list[Declaration] | child
 
 
-@qltest.collapse_hierarchy
 class Expr(AstNode):
     pass
 
@@ -119,8 +118,15 @@ class Function(Declaration):
     body: Expr | child
 
 
-#     Missing,
+@rust.doc_test_signature("() -> ()")
 class MissingExpr(Expr):
+    """
+    A missing expression, used as a place holder for incomplete syntax, as well as bodies of functions that are defined externally.
+
+    ```
+    let x = non_existing_macro!();
+    ```
+    """
     pass
 
 
@@ -137,7 +143,23 @@ class PathExpr(Expr):
 #     },
 
 
+@rust.doc_test_signature("() -> ()")
 class IfExpr(Expr):
+    """
+    An `if` expression. For example:
+    ```
+    if x == 42 {
+        println!("that's the answer");
+    }
+    ```
+    ```
+    let y = if x > 0 {
+        1
+    } else {
+        0
+    }
+    ```
+    """
     condition: Expr | child
     then: Expr | child
     else_: optional[Expr] | child
@@ -148,7 +170,16 @@ class IfExpr(Expr):
 #     },
 
 
+@rust.doc_test_signature("(maybe_some: Option<String>) -> ()")
 class LetExpr(Expr):
+    """
+    A `let` expression. For example:
+    ```
+    if let Some(x) = maybe_some {
+        println!("{}", x);
+    }   
+    ```
+    """
     pat: Pat | child
     expr: Expr | child
 
@@ -165,7 +196,22 @@ class BlockExprBase(Expr):
     tail: optional[Expr] | child
 
 
+@rust.doc_test_signature("() -> ()")
 class BlockExpr(BlockExprBase):
+    """
+    A block expression. For example:
+    ```
+    {
+        let x = 42;
+    }
+    ```
+    ```
+    'label: {
+        let x = 42;
+        x
+    }
+    ```
+    """
     label: optional[Label] | child
 
 #     Async {
@@ -175,13 +221,30 @@ class BlockExpr(BlockExprBase):
 #     },
 
 
+@rust.doc_test_signature("() -> i32")
 class AsyncBlockExpr(BlockExprBase):
+    """
+    An async block expression. For example:
+    ``` 
+    async { 
+       let x = 42;
+       x
+    }.await
+    ```
+    """
     pass
 
-#     Const(ConstBlockId),
 
-
+@rust.doc_test_signature("() -> bool")
 class ConstExpr(Expr):
+    """
+    A `const` block expression. For example:
+    ```
+    if const { SRC::IS_ZST || DEST::IS_ZST || mem::align_of::<SRC>() != mem::align_of::<DEST>() } {
+        return false;
+    }
+    ```
+    """
     expr: Expr | child
 
 #     // FIXME: Fold this into Block with an unsafe flag?

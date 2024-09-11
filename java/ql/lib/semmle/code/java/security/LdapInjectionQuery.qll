@@ -17,6 +17,8 @@ module LdapInjectionFlowConfig implements DataFlow::ConfigSig {
   predicate isAdditionalFlowStep(DataFlow::Node pred, DataFlow::Node succ) {
     any(LdapInjectionAdditionalTaintStep a).step(pred, succ)
   }
+
+  predicate filterForSourceOrSinkAlerts() { any() }
 }
 
 /** Tracks flow from remote sources to LDAP injection vulnerabilities. */

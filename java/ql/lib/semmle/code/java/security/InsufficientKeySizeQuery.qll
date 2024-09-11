@@ -16,6 +16,8 @@ module KeySizeConfig implements DataFlow::StateConfigSig {
   predicate isSink(DataFlow::Node sink, KeySizeState state) {
     sink.(InsufficientKeySizeSink).hasState(state)
   }
+
+  predicate filterForSourceOrSinkAlerts() { any() }
 }
 
 /** Tracks key sizes used in cryptographic algorithms. */

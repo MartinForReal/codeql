@@ -47,6 +47,8 @@ module PolynomialRedosConfig implements DataFlow::ConfigSig {
     node instanceof SimpleTypeSanitizer or
     node.asExpr().(MethodCall).getMethod() instanceof LengthRestrictedMethod
   }
+
+  predicate filterForSourceOrSinkAlerts() { any() }
 }
 
 module PolynomialRedosFlow = TaintTracking::Global<PolynomialRedosConfig>;

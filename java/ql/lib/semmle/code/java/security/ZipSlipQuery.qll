@@ -43,6 +43,8 @@ module ZipSlipConfig implements DataFlow::ConfigSig {
     node instanceof SimpleTypeSanitizer or
     node instanceof PathInjectionSanitizer
   }
+
+  predicate filterForSourceOrSinkAlerts() { any() }
 }
 
 /** Tracks flow from archive entries to file creation. */

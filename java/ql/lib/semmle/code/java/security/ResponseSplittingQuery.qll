@@ -31,6 +31,8 @@ module ResponseSplittingConfig implements DataFlow::ConfigSig {
       )
     )
   }
+
+  predicate filterForSourceOrSinkAlerts() { any() }
 }
 
 /**
